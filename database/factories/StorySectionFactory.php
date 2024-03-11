@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Quest>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\StorySection>
  */
-class QuestFactory extends Factory
+class StorySectionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,6 +17,7 @@ class QuestFactory extends Factory
     public function definition(): array
     {
         return [
+            //
         ];
     }
 }

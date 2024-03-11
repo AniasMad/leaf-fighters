@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Quest extends Model
+class Story extends Model
 {
     use HasFactory;
-
-    public function users()
+    public function sections()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(StorySection::class);
     }
 }

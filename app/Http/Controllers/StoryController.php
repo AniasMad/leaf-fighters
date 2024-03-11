@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreQuestRequest;
-use App\Http\Requests\UpdateQuestRequest;
-use App\Models\Quest;
+use App\Http\Requests\StoreStoryRequest;
+use App\Http\Requests\UpdateStoryRequest;
+use App\Models\Story;
 
-use Illuminate\Support\Facades\DB;
-
-class QuestController extends Controller
+class StoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $quests = Quest::orderBy('created_at', 'desc')->paginate(8);
+        //
     }
 
     /**
@@ -29,7 +27,7 @@ class QuestController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreQuestRequest $request)
+    public function store(StoreStoryRequest $request)
     {
         //
     }
@@ -37,7 +35,7 @@ class QuestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Quest $quest)
+    public function show(Story $story)
     {
         //
     }
@@ -45,7 +43,7 @@ class QuestController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Quest $quest)
+    public function edit(Story $story)
     {
         //
     }
@@ -53,7 +51,7 @@ class QuestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateQuestRequest $request, Quest $quest)
+    public function update(UpdateStoryRequest $request, Story $story)
     {
         //
     }
@@ -61,7 +59,7 @@ class QuestController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Quest $quest)
+    public function destroy(Story $story)
     {
         //
     }

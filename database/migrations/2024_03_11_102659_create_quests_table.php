@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('quests', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-    
+            $table->string('title');
+            $table->text('description');
+            $table->string('type');
+            $table->integer('reward');
+            $table->string('image')->default('defaultimg.jpg');
         });
     }
 

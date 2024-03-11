@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
-            $table->string('role');
-            $table->integer('coins');
+            $table->string('role')->default('user');
+            $table->integer('coins')->default('0');
         });
     }
 

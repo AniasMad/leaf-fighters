@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('user_quests', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('status')->default('Not Completed');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('quest_id');  
+
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('quest_id')->references('id')->on('quests')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

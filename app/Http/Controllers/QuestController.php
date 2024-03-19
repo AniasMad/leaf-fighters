@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreQuestRequest;
 use App\Http\Requests\UpdateQuestRequest;
 use App\Models\Quest;
@@ -16,6 +17,7 @@ class QuestController extends Controller
     public function index()
     {
         $quests = Quest::orderBy('created_at', 'desc')->paginate(8);
+        return view('quests.index')->with('quests', $quests);
     }
 
     /**
@@ -23,7 +25,7 @@ class QuestController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -37,17 +39,22 @@ class QuestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Quest $quest)
+    public function show(string $id)
     {
-        //
+        $quest = Quest::findOrFail($id);
+
+        return view('quests.show')->with('quest', $quest);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Quest $quest)
+    public function edit(string $id)
     {
-        //
+        $quest = Quest::findOrFail($id);
+        return view('quests.edit', [
+            'quest' => $quest
+        ]);
     }
 
     /**

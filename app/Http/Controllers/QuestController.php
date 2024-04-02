@@ -25,7 +25,7 @@ class QuestController extends Controller
      */
     public function create()
     {
-        
+        return view('quests.create');
     }
 
     /**
@@ -33,7 +33,38 @@ class QuestController extends Controller
      */
     public function store(StoreQuestRequest $request)
     {
-        //
+        // Validation rules
+        $rules = [
+            'title' => 'required|string|unique:quests,title|min:2|max:40',
+            'description' => 'required|string|min:5|max:200',
+            'type' => 'required|string|min:4|max:20',
+            'reward' => 'required|integer|min:1|max:20',
+            'image' => 'file|image'
+        ];
+
+        $messages = [
+            'title.unique' => 'Quest title must be unique',
+        ];
+
+        $request->validate($rules, $messages);
+
+        $quest = new Quest;
+        $quest->title = $request->title;
+        $quest->description = $request->description;
+        $quest->type = $request->type;
+        $quest->reward = $request->reward;
+
+        // Store the image
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = date('Y-m-d-His') . '_' . $request->name . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/images', $filename);
+            $quest->image = $filename;
+        }
+
+        $quest->save();
+
+        return redirect()->route('quests.index')->with('status', 'Created a new Quest!');
     }
 
     /**
@@ -62,7 +93,44 @@ class QuestController extends Controller
      */
     public function update(UpdateQuestRequest $request, Quest $quest)
     {
-        //
+        $quest = Quest::findOrFail($id);
+
+        $rules = [
+            'title' => 'required|string|unique:quests,title|min:2|max:40',
+            'description' => 'required|string|min:5|max:200',
+            'type' => 'required|string|min:4|max:20',
+            'reward' => 'required|integer|min:1|max:20',
+            'image' => 'file|image'
+        ];
+
+        $messages = [
+            'title.unique' => 'Quest title must be unique',
+        ];
+
+        $request->validate($rules, $messages);
+
+        $quest = new Quest;
+        $quest->title = $request->title;
+        $quest->description = $request->description;
+        $quest->type = $request->type;
+        $quest->reward = $request->reward;
+
+        if ($request->hasFile('image')) { // Update the image!
+            // Upload new image
+            $newImage = $request->file('image');
+            $filename = date('Y-m-d-His') . '_' . $request->name . '.' . $newImage->getClientOriginalExtension();
+            $newImage->storeAs('public/images/', $filename);
+          
+            if ($quest->image) { // Delete old image
+                Storage::delete('public/images/' . $quest->image);
+            }
+
+            $quest->image = $filename;
+        }
+
+        $quest->save();
+
+        return redirect()->route('quests.index')->with('status', 'Quest updated!');
     }
 
     /**
@@ -70,6 +138,12 @@ class QuestController extends Controller
      */
     public function destroy(Quest $quest)
     {
-        //
+        $quest = Quest::findOrFail($id);
+        if ($quest->image) { // Delete old image
+            Storage::delete('public/images/' . $quest->image);
+        }
+        $quest->delete();
+
+        return redirect()->route('quests.index')->with('status', 'Quest deleted successfully.');
     }
 }

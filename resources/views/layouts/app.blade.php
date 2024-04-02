@@ -29,9 +29,9 @@
 
             <!-- Page Content -->
             <main>
-            <div class="container">
-                @yield('content')
-            </div>
+                <div class="container-flex">
+                    @yield('content')
+                </div>
             </main>
         </div>
     </body>

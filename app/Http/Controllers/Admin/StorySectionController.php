@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreStorySectionRequest;
 use App\Http\Requests\UpdateStorySectionRequest;
 use App\Models\StorySection;
+use App\Http\Controllers\Controller;
+use Auth;
 
 class StorySectionController extends Controller
 {

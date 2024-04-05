@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
@@ -18,7 +18,7 @@
     <h4 class="text-2xl font-bold dark:text-white">{{ __('Create Quest') }}</h4>
 </div>
 <div class="px-6 py-3">
-    <form enctype="multipart/form-data" action="{{ route('quests.store') }}" method="post">
+    <form enctype="multipart/form-data" action="{{ route('admin.quests.store') }}" method="post">
     
     @csrf
     <div>

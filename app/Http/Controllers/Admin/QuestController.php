@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreQuestRequest;
 use App\Http\Requests\UpdateQuestRequest;
 use App\Models\Quest;
+use App\Http\Controllers\Controller;
+use Auth;
 
 use Illuminate\Support\Facades\DB;
 
@@ -16,8 +18,13 @@ class QuestController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->hasRole('admin'))
+        {
+            return to_route('user.quests.index');
+        }
+
         $quests = Quest::orderBy('created_at', 'desc')->paginate(8);
-        return view('quests.index')->with('quests', $quests);
+        return view('admin.quests.index')->with('quests', $quests);
     }
 
     /**
@@ -25,7 +32,7 @@ class QuestController extends Controller
      */
     public function create()
     {
-        return view('quests.create');
+        return view('admin.quests.create');
     }
 
     /**
@@ -64,7 +71,7 @@ class QuestController extends Controller
 
         $quest->save();
 
-        return redirect()->route('quests.index')->with('status', 'Created a new Quest!');
+        return redirect()->route('admin.quests.index')->with('status', 'Created a new Quest!');
     }
 
     /**
@@ -74,7 +81,7 @@ class QuestController extends Controller
     {
         $quest = Quest::findOrFail($id);
 
-        return view('quests.show')->with('quest', $quest);
+        return view('admin.quests.show')->with('quest', $quest);
     }
 
     /**
@@ -83,7 +90,7 @@ class QuestController extends Controller
     public function edit(string $id)
     {
         $quest = Quest::findOrFail($id);
-        return view('quests.edit', [
+        return view('admin.quests.edit', [
             'quest' => $quest
         ]);
     }
@@ -130,7 +137,7 @@ class QuestController extends Controller
 
         $quest->save();
 
-        return redirect()->route('quests.index')->with('status', 'Quest updated!');
+        return redirect()->route('admin.quests.index')->with('status', 'Quest updated!');
     }
 
     /**
@@ -144,6 +151,6 @@ class QuestController extends Controller
         }
         $quest->delete();
 
-        return redirect()->route('quests.index')->with('status', 'Quest deleted successfully.');
+        return redirect()->route('admin.quests.index')->with('status', 'Quest deleted successfully.');
     }
 }

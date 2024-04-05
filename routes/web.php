@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 
-use App\Http\Controllers\QuestController;
+use App\Http\Controllers\Admin\QuestController as AdminQuestController;
+use App\Http\Controllers\User\QuestController as UserQuestController;
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +39,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::resource('/quests', UserQuestController::class)->middleware(['auth', 'role:user,admin'])->names('user.quests')->only(['index', 'show']);
+Route::resource('/admin/quests', AdminQuestController::class)->middleware(['auth', 'role:admin'])->names('admin.quests');
 
 require __DIR__.'/auth.php';

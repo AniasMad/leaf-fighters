@@ -9,8 +9,16 @@ class Quest extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'type',
+        'reward',
+        'image'
+    ];
+
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'user_quests')->withTimestamps();
     }
 }

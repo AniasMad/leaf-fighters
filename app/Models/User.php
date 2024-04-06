@@ -47,6 +47,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_role');
     }
+    public function quests()
+    {
+        return $this->belongsToMany(Quest::class, 'user_quests')->withTimestamps();
+    }
 
     public function hasRole($role){
         return null!== $this->roles()->where('name', $role)->first();

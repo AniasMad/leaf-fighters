@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreQuestRequest;
-use App\Http\Requests\UpdateQuestRequest;
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Quest;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -32,21 +32,29 @@ class QuestController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasRole('admin'))
+        {
+            return to_route('user.quests.index');
+        }
         return view('admin.quests.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreQuestRequest $request)
+    public function store(Request $request)
     {
+        if(!Auth::user()->hasRole('admin'))
+        {
+            return to_route('user.quests.index');
+        }
         // Validation rules
         $rules = [
             'title' => 'required|string|unique:quests,title|min:2|max:40',
             'description' => 'required|string|min:5|max:200',
             'type' => 'required|string|min:4|max:20',
             'reward' => 'required|integer|min:1|max:20',
-            'image' => 'file|image'
+            'image' => 'file|image',
         ];
 
         $messages = [
@@ -98,7 +106,7 @@ class QuestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateQuestRequest $request, Quest $quest)
+    public function update(Request $request, string $id)
     {
         $quest = Quest::findOrFail($id);
 
@@ -107,7 +115,7 @@ class QuestController extends Controller
             'description' => 'required|string|min:5|max:200',
             'type' => 'required|string|min:4|max:20',
             'reward' => 'required|integer|min:1|max:20',
-            'image' => 'file|image'
+            'image' => 'file|image',
         ];
 
         $messages = [
@@ -116,7 +124,6 @@ class QuestController extends Controller
 
         $request->validate($rules, $messages);
 
-        $quest = new Quest;
         $quest->title = $request->title;
         $quest->description = $request->description;
         $quest->type = $request->type;
@@ -143,7 +150,7 @@ class QuestController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Quest $quest)
+    public function destroy(string $id)
     {
         $quest = Quest::findOrFail($id);
         if ($quest->image) { // Delete old image

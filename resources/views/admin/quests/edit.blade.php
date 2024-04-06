@@ -17,7 +17,7 @@
     <h4 class="text-2xl font-bold dark:text-white">{{ __('Edit Quest') }}</h4>
 </div>
 <div class="px-6 py-3">
-<form enctype="multipart/form-data" action="{{ route('quests.update', $quest->id) }}" method="post">
+<form enctype="multipart/form-data" action="{{ route('admin.quests.update', $quest->id) }}" method="post">
     
     @csrf
     @method('PUT')

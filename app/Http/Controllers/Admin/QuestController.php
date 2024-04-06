@@ -46,7 +46,7 @@ class QuestController extends Controller
     {
         if(!Auth::user()->hasRole('admin'))
         {
-            return to_route('user.quests.index');
+            return to_route('user.home');
         }
         // Validation rules
         $rules = [

@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\QuestController as AdminQuestController;
 use App\Http\Controllers\User\QuestController as UserQuestController;
 
+use App\Http\Controllers\Admin\StoryController as AdminStoryController;
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
@@ -37,8 +39,12 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+// User Views
 Route::resource('/quests', UserQuestController::class)->middleware(['auth', 'role:user,admin'])->names('user.quests')->only(['index', 'show']);
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+
+// Admin Views
 Route::resource('/admin/quests', AdminQuestController::class)->middleware(['auth', 'role:admin'])->names('admin.quests');
+Route::resource('/admin/stories', AdminStoryController::class)->middleware(['auth', 'role:admin'])->names('admin.stories');
 
 require __DIR__.'/auth.php';

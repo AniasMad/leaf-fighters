@@ -16,11 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('title');
             $table->text('description');
-            $table->unsignedBigInteger('user_id');
-            $table->string('status');
             $table->integer('numPage');
-
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

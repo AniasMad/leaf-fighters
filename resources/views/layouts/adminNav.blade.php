@@ -14,6 +14,11 @@
                         {{ __('Quests') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('admin.stories.index')" :active="request()->routeIs('admin.stories.index')">
+                        {{ __('Stories') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

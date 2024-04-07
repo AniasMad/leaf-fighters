@@ -7,6 +7,8 @@ use App\Http\Controllers\User\QuestController as UserQuestController;
 
 use App\Http\Controllers\Admin\StoryController as AdminStoryController;
 
+use App\Http\Controllers\Admin\StorySectionController as AdminStorySectionController;
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
@@ -46,5 +48,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 // Admin Views
 Route::resource('/admin/quests', AdminQuestController::class)->middleware(['auth', 'role:admin'])->names('admin.quests');
 Route::resource('/admin/stories', AdminStoryController::class)->middleware(['auth', 'role:admin'])->names('admin.stories');
+Route::resource('/admin/storysections', AdminStorySectionController::class)->middleware(['auth', 'role:admin'])->names('admin.storysections');
 
 require __DIR__.'/auth.php';

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('text');
             $table->string('image');
             $table->integer('order');
-            $table->string('status');
+            $table->string('status')->default('Not Read');
 
             $table->foreign('story_id')->references('id')->on('stories')->onUpdate('cascade')->onDelete('restrict');
         });

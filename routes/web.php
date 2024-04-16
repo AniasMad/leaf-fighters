@@ -41,6 +41,10 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/main', function () {
+    return view('main');
+});
+
 // User Views
 Route::resource('/quests', UserQuestController::class)->middleware(['auth', 'role:user,admin'])->names('user.quests')->only(['index', 'show']);
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');

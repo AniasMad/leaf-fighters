@@ -12,7 +12,8 @@ use App\Http\Controllers\Admin\StorySectionController as AdminStorySectionContro
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\StoryGameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,18 +37,29 @@ Route::middleware('auth')->group(function () {
 
     // Quest routes
 
-    Route::resource('/quests', QuestController::class);
+    Route::resource('/quests', AdminQuestController::class);
 });
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/main', function () {
     return view('main');
 });
 
 // User Views
-Route::resource('/quests', UserQuestController::class)->middleware(['auth', 'role:user,admin'])->names('user.quests')->only(['index', 'show']);
-Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/game', [GameController::class, 'index'])
+    ->middleware(['auth', 'role:admin,user'])
+    ->name('user.game');
+
+Route::post('/quests/{quest}/complete', [AdminQuestController::class, 'complete'])
+    ->middleware(['auth', 'role:admin,user'])
+    ->name('quests.complete');
+
+Route::get('/storygame', [StoryGameController::class, 'index'])
+    ->middleware(['auth', 'role:admin,user'])
+    ->name('user.storygame');
+
+Route::get('/stories/{story}', [StoryGameController::class, 'show'])
+    ->middleware(['auth', 'role:admin,user'])
+    ->name('user.storygameshow');
 
 // Admin Views
 Route::resource('/admin/quests', AdminQuestController::class)->middleware(['auth', 'role:admin'])->names('admin.quests');

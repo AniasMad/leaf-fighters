@@ -160,4 +160,14 @@ class QuestController extends Controller
 
         return redirect()->route('admin.quests.index')->with('status', 'Quest deleted successfully.');
     }
+
+    public function complete(Request $request, Quest $quest)
+    {
+        $user = Auth::user();
+
+            
+        $user->quests()->updateExistingPivot($quest->id, ['status' => 'Completed']);
+
+        return redirect()->back()->with('success', 'Quest completed successfully.');
+    }
 }

@@ -20,10 +20,10 @@ class HomeController extends Controller
 
         if($user->hasRole('admin'))
         {
-            $home = 'admin.home';
+            $home = 'admin.quests.index';
         }
         else if($user->hasRole('user')){
-            $home = 'user.home';
+            $home = 'user.game';
         }
         return view($home);
     }

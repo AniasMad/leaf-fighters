@@ -11,10 +11,10 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         if($user->hasRole('admin')){
-            return view('admin.dashboard');
+            return view('admin.quests.index');
         }
         else {
-            return view('dashboard');
+            return view('user.game');
         }
     }
 }

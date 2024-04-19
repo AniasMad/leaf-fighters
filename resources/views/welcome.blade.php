@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Laravel App</title>
+    <title>Leaf Fighters</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -16,13 +16,13 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active text-light" aria-current="page" href="#">About Us</a>
+          <a class="nav-link active text-light" aria-current="page" href="{{ route('login') }}">Log In</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">Endangered Species</a>
+          <a class="nav-link text-light" href="{{ route('register') }}">Sign Up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="#">Tutorial</a>
+          <a class="nav-link text-light" href="#">About Us</a>
         </li>
       </ul>
     </div>

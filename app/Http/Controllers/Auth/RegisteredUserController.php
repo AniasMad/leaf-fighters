@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\Role;
+use App\Models\Quest;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisteredUserController extends Controller
 {
@@ -51,6 +53,11 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        $randomQuest = Quest::inRandomOrder()->first();
+
+        if ($randomQuest) {
+            $user->quests()->syncWithoutDetaching([$randomQuest->id]);
+        }
+        return Redirect::route('user.game');
     }
 }

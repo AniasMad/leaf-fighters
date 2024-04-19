@@ -16,9 +16,9 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('story_id');
             $table->text('text');
-            $table->string('image');
+            $table->string('image')->default('defaultimg.jpg');
             $table->integer('order');
-            $table->string('status')->default('Not Read');
+            $table->string('status')->default('Not Completed');
 
             $table->foreign('story_id')->references('id')->on('stories')->onUpdate('cascade')->onDelete('restrict');
         });

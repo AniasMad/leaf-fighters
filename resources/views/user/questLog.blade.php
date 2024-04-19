@@ -37,28 +37,23 @@
 </nav>
 
 
+
 <div class="container-fluid bg-light py-2">
     <div class="container">
-    <h2 class="py-2">Quests</h2>
+    <h2 class="py-2">Completed Quests</h2>
     <ul class="list-group">
         @forelse($quests as $quest)
             <li class="list-group-item py-2">
-            <form action="{{ route('quests.complete', ['quest' => $quest->id]) }}" method="POST">
-                @csrf
                 <div class="d-flex align-content-center">
                 <h4>{{ $quest->title }}</h4>
-                <button type="submit" class="btn btn-primary mx-3"><i class="fa-solid fa-check" style="color: #ffffff;"></i></button>
+                <button type="submit" class="btn btn-primary mx-3 disabled"><i class="fa-solid fa-check" style="color: #ffffff;"></i></button>
                 </div>
-            </form>
             </li>
         @empty
-            <h4>No Quests for today! Come back tomorrow.</h4>
+            <h4>No Quests completed yet.</h4>
         @endforelse
     </ul>
     </div>
-</div>
-<div class="container-fluid d-flex justify-content-center bg-light">
-<img src="{{ asset('images/questbg.JPG') }}" alt="background" class="img-fluid">
 </div>
 
 <div class="container-fluid py-5 mt-3 bg-secondary">

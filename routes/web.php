@@ -40,14 +40,18 @@ Route::middleware('auth')->group(function () {
     Route::resource('/quests', AdminQuestController::class);
 });
 
-Route::get('/main', function () {
-    return view('main');
+Route::get('/dashboard', function () {
+    return redirect()->route('user.game');
 });
 
 // User Views
 Route::get('/game', [GameController::class, 'index'])
     ->middleware(['auth', 'role:admin,user'])
     ->name('user.game');
+
+Route::get('/questLog', [GameController::class, 'questLog'])
+    ->middleware(['auth', 'role:admin,user'])
+    ->name('user.questLog');
 
 Route::post('/quests/{quest}/complete', [AdminQuestController::class, 'complete'])
     ->middleware(['auth', 'role:admin,user'])

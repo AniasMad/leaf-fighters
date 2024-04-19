@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             QuestSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            StorySeeder::class
+            StorySeeder::class,
+            StorySectionSeeder::class
         ]);
     }
 }
